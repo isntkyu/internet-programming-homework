@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>junkyu s Finalproject</title>
+    <style>
+        #plane{
+            position: absolute;
+            clear : left;
+        }
+        .btn{
+            background: gray;
+        }
+        .usapic{
+            border : 8px solid orange;
+            padding: 8px;
+            margin : 20px;
+        }
+        .thaipic{
+            border : 8px solid greenyellow;
+            padding: 8px;
+            margin : 20px;
+        }
+        .japic{
+            border : 8px solid red;
+            padding: 8px;
+            margin : 20px;
+        }
+        h1{
+            border : 4px solid gray;
+            border-radius: 20px;
+            padding: 15px;
+            float : left;
+            margin : 40px;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script>
+
+        function move(p, x){
+            if(x === 0){
+                setInterval(function () {
+                    p.style.right = x +"px";
+                    x++;
+                    if(x > screen.availWidth) x = 0;
+                },1);
+            }
+            else {
+                p.style.left = x + "px";
+            }
+        }
+
+
+        $(document).ready(function () {
+            var a = 0, b = 0, c = 0 , full = 0;
+            var usa = ["usa.jpeg","usa2.jpeg","usa3.jpeg","usa4.jpeg"];
+            var ja = ["ja.jpeg","ja2.jpeg","ja3.jpeg","ja4.jpeg"];
+            var thai = ["thai.jpeg","thai2.jpeg","thai3.jpeg","thai4.jpeg"];
+
+            var p = document.getElementById("plane");
+
+            move(p, 0);
+
+            $('button').click(function () {
+                if($(this).attr('id')=='b'){
+                    $('#main').empty();
+                }
+                else if($(this).attr('id')=='u'){
+                    $('.usapic').remove();
+                }
+                else if($(this).attr('id')=='t'){
+                    $('.thaipic').remove();
+                }
+                else if($(this).attr('id')=='j'){
+                    $('.japic').remove();
+                }
+            });
+
+
+
+            $('font').hover(function () {
+                $(this).addClass('btn');
+            },function () {
+                $(this).removeClass('btn');
+            });
+
+            $('font').click(function () {
+
+
+                if($(this).attr('id') == 'usa' && a != usa.length){
+
+                    if(full == 8){
+                        $('img').eq(2).remove();
+                        full--;
+                    }
+
+                    $('<img />', {
+                            class: "usapic",
+                            src: usa[a],
+                            width: 280,
+                            height: 260,
+                        }).appendTo('#main');
+
+                    this.style.border = 7 + "px solid orange";
+
+                    $('#thai').removeAttr('style');
+                    $('#ja').removeAttr('style');
+
+                    a++;
+
+                    if(a == usa.length){
+                        alert("미국 사진은 마지막 입니다");
+                    }
+
+                    move(p, 275);
+
+                    full++;
+                }
+
+                else if($(this).attr('id') == 'thai' && b != thai.length){
+
+                    if(full == 8){
+                        $('img').eq(2).remove();
+                        full--;
+                    }
+
+                    $('<img />',{
+                        class : "thaipic",
+                        src : thai[b],
+                        width : 280,
+                        height : 260,
+                    }).appendTo('#main');
+
+                    this.style.border = 7 + "px solid greenyellow";
+
+                    $('#usa').removeAttr('style');
+                    $('#ja').removeAttr('style');
+
+                    b++;
+
+                    if(b == thai.length){
+                        alert("태국 사진은 마지막 입니다");
+                    }
+                    move(p, 606);
+                    full++;
+                }
+                else if($(this).attr('id') == 'ja' && c != ja.length){
+
+                   if(full == 8){
+                       $('img').eq(2).remove();
+                       full--;
+                   }
+
+                    $('<img />',{
+                        class : "japic",
+                        src : ja[c],
+                        width : 280,
+                        height : 260,
+                    }).appendTo('#main');
+
+                    $('#thai').removeAttr('style');
+                    $('#usa').removeAttr('style');
+
+                    this.style.border = 7 + "px solid red";
+
+                    c++;
+
+                    if(c == ja.length){
+                        alert("일본 사진은 마지막 입니다");
+                    }
+                    move(p, 948);
+                    full++;
+                }
+
+            });
+
+
+        });
+    </script>
+
+
+    <h1>이준규의 해외여행기</h1>
+    <div id = "insta">
+        <a href = "https://www.instagram.com/isn.t_kyu/?hl=ko"><img src="insta.png" width = 30 height = 30><br>자세히 보러가기</a>
+    </div>
+    <br><br><br><br><br>
+    <div id="plane">
+        <img src="plane.jpg" width=100 height=100>
+    </div><br><br><br><br><br>
+    <hr>
+    <Button id = "b"> 모두 비우기 </Button>
+    <Button id = "u"> 미국 안보이기 </Button>
+    <Button id = "t"> 태국 안보이기 </Button>
+    <Button id = "j"> NO JAPAN </Button>
+
+    <pre>
+                               <font size="20" id="usa">미국</font>                                   <font  size="20" id="thai">태국</font>                                   <font size="20" id="ja">일본</font>
+    </pre>
+</head>
+<body>
+<div id = "main"></div>
+</body>
+</html>
